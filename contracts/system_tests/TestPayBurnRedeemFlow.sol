@@ -11,7 +11,7 @@ import './helpers/TestBaseWorkflow.sol';
  * launch project → issue token → pay project (claimed tokens) →  burn some of the claimed tokens → redeem rest of tokens
  */
 contract TestPayBurnRedeemFlow is TestBaseWorkflow {
-  JBController private _controller;
+  JBControllerV2_1 private _controller;
   JBETHPaymentTerminal private _terminal;
   JBTokenStore private _tokenStore;
 

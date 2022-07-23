@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.6;
 
+import '@jbx-protocol/contracts-v2/contracts/JBReconfigurationBufferBallot.sol';
+import '@jbx-protocol/contracts-v2/contracts/JBETHERC20SplitsPayer.sol';
 import './helpers/TestBaseWorkflow.sol';
-import '../JBReconfigurationBufferBallot.sol';
-import '../JBETHERC20SplitsPayer.sol';
 
 contract TestEIP165 is TestBaseWorkflow {
   bytes4 constant notSupportedInterface = 0xffffffff;
@@ -20,7 +20,7 @@ contract TestEIP165 is TestBaseWorkflow {
   address constant splitsOwner = address(420);
 
   function testJBController() public {
-    JBController controller = jbController();
+    JBControllerV2_1 controller = jbController();
 
     // Should support these interfaces
     assertTrue(controller.supportsInterface(type(IERC165).interfaceId));

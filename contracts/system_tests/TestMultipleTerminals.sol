@@ -4,10 +4,9 @@ pragma solidity 0.8.6;
 import '@paulrberg/contracts/math/PRBMath.sol';
 import './helpers/TestBaseWorkflow.sol';
 import './mock/MockPriceFeed.sol';
-import '@paulrberg/contracts/math/PRBMath.sol';
 
 contract TestMultipleTerminals is TestBaseWorkflow {
-  JBController controller;
+  JBControllerV2_1 controller;
   JBProjectMetadata _projectMetadata;
   JBFundingCycleData _data;
   JBFundingCycleMetadata _metadata;

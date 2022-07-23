@@ -5,7 +5,7 @@ import './helpers/TestBaseWorkflow.sol';
 
 /// @notice This file tests JBToken related flows
 contract TestTokenFlow is TestBaseWorkflow {
-  JBController private _controller;
+  JBControllerV2_1 private _controller;
   JBTokenStore private _tokenStore;
 
   JBProjectMetadata private _projectMetadata;
@@ -80,8 +80,8 @@ contract TestTokenFlow is TestBaseWorkflow {
     bool burnPreferClaimed
   ) public {
     // Might overflow in processed token tracker if burn amount >= max int256 (ie (2**256)/2 -1 )
-    evm.assume(burnAmount < (2**256)/2);
-    
+    evm.assume(burnAmount < (2**256) / 2);
+
     // calls will originate from projectOwner addr
     evm.startPrank(_projectOwner);
 

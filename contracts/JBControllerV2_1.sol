@@ -4,16 +4,16 @@ pragma solidity 0.8.6;
 import '@openzeppelin/contracts/utils/introspection/ERC165.sol';
 import '@openzeppelin/contracts/utils/math/SafeCast.sol';
 import '@paulrberg/contracts/math/PRBMath.sol';
-import './abstract/JBOperatable.sol';
-import './interfaces/IJBController.sol';
-import './interfaces/IJBMigratable.sol';
-import './interfaces/IJBOperatorStore.sol';
-import './interfaces/IJBPaymentTerminal.sol';
-import './interfaces/IJBProjects.sol';
-import './libraries/JBConstants.sol';
-import './libraries/JBFundingCycleMetadataResolver.sol';
-import './libraries/JBOperations.sol';
-import './libraries/JBSplitsGroups.sol';
+import '@jbx-protocol/contracts-v2/contracts/abstract/JBOperatable.sol';
+import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBController.sol';
+import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBMigratable.sol';
+import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBOperatorStore.sol';
+import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBPaymentTerminal.sol';
+import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBProjects.sol';
+import '@jbx-protocol/contracts-v2/contracts/libraries/JBConstants.sol';
+import '@jbx-protocol/contracts-v2/contracts/libraries/JBFundingCycleMetadataResolver.sol';
+import '@jbx-protocol/contracts-v2/contracts/libraries/JBOperations.sol';
+import '@jbx-protocol/contracts-v2/contracts/libraries/JBSplitsGroups.sol';
 
 /**
   @notice
@@ -29,7 +29,7 @@ import './libraries/JBSplitsGroups.sol';
   JBOperatable: Several functions in this contract can only be accessed by a project owner, or an address that has been preconfifigured to be an operator of the project.
   ERC165: Introspection on interface adherance. 
 */
-contract JBController is JBOperatable, ERC165, IJBController, IJBMigratable {
+contract JBControllerV2_1 is JBOperatable, ERC165, IJBController, IJBMigratable {
   // A library that parses the packed funding cycle metadata into a more friendly format.
   using JBFundingCycleMetadataResolver for JBFundingCycle;
 

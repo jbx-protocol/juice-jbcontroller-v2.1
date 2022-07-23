@@ -4,35 +4,35 @@ pragma solidity 0.8.6;
 import './hevm.sol';
 import '../../../lib/ds-test/src/test.sol';
 
-import '../../JBController.sol';
-import '../../JBDirectory.sol';
-import '../../JBETHPaymentTerminal.sol';
-import '../../JBERC20PaymentTerminal.sol';
-import '../../JBSingleTokenPaymentTerminalStore.sol';
-import '../../JBFundingCycleStore.sol';
-import '../../JBOperatorStore.sol';
-import '../../JBPrices.sol';
-import '../../JBProjects.sol';
-import '../../JBSplitsStore.sol';
-import '../../JBToken.sol';
-import '../../JBTokenStore.sol';
+import '../../JBControllerV2_1.sol';
+import '@jbx-protocol/contracts-v2/contracts/JBDirectory.sol';
+import '@jbx-protocol/contracts-v2/contracts/JBETHPaymentTerminal.sol';
+import '@jbx-protocol/contracts-v2/contracts/JBERC20PaymentTerminal.sol';
+import '@jbx-protocol/contracts-v2/contracts/JBSingleTokenPaymentTerminalStore.sol';
+import '@jbx-protocol/contracts-v2/contracts/JBFundingCycleStore.sol';
+import '@jbx-protocol/contracts-v2/contracts/JBOperatorStore.sol';
+import '@jbx-protocol/contracts-v2/contracts/JBPrices.sol';
+import '@jbx-protocol/contracts-v2/contracts/JBProjects.sol';
+import '@jbx-protocol/contracts-v2/contracts/JBSplitsStore.sol';
+import '@jbx-protocol/contracts-v2/contracts/JBToken.sol';
+import '@jbx-protocol/contracts-v2/contracts/JBTokenStore.sol';
 
-import '../../structs/JBDidPayData.sol';
-import '../../structs/JBDidRedeemData.sol';
-import '../../structs/JBFee.sol';
-import '../../structs/JBFundAccessConstraints.sol';
-import '../../structs/JBFundingCycle.sol';
-import '../../structs/JBFundingCycleData.sol';
-import '../../structs/JBFundingCycleMetadata.sol';
-import '../../structs/JBGroupedSplits.sol';
-import '../../structs/JBOperatorData.sol';
-import '../../structs/JBPayParamsData.sol';
-import '../../structs/JBProjectMetadata.sol';
-import '../../structs/JBRedeemParamsData.sol';
-import '../../structs/JBSplit.sol';
+import '@jbx-protocol/contracts-v2/contracts/structs/JBDidPayData.sol';
+import '@jbx-protocol/contracts-v2/contracts/structs/JBDidRedeemData.sol';
+import '@jbx-protocol/contracts-v2/contracts/structs/JBFee.sol';
+import '@jbx-protocol/contracts-v2/contracts/structs/JBFundAccessConstraints.sol';
+import '@jbx-protocol/contracts-v2/contracts/structs/JBFundingCycle.sol';
+import '@jbx-protocol/contracts-v2/contracts/structs/JBFundingCycleData.sol';
+import '@jbx-protocol/contracts-v2/contracts/structs/JBFundingCycleMetadata.sol';
+import '@jbx-protocol/contracts-v2/contracts/structs/JBGroupedSplits.sol';
+import '@jbx-protocol/contracts-v2/contracts/structs/JBOperatorData.sol';
+import '@jbx-protocol/contracts-v2/contracts/structs/JBPayParamsData.sol';
+import '@jbx-protocol/contracts-v2/contracts/structs/JBProjectMetadata.sol';
+import '@jbx-protocol/contracts-v2/contracts/structs/JBRedeemParamsData.sol';
+import '@jbx-protocol/contracts-v2/contracts/structs/JBSplit.sol';
 
-import '../../interfaces/IJBPaymentTerminal.sol';
-import '../../interfaces/IJBToken.sol';
+import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBPaymentTerminal.sol';
+import '@jbx-protocol/contracts-v2/contracts/interfaces/IJBToken.sol';
 
 import './AccessJBLib.sol';
 
@@ -70,8 +70,8 @@ contract TestBaseWorkflow is DSTest {
   JBTokenStore private _jbTokenStore;
   // JBSplitsStore
   JBSplitsStore private _jbSplitsStore;
-  // JBController
-  JBController private _jbController;
+  // JBControllerV2_1
+  JBControllerV2_1 private _jbController;
   // JBETHPaymentTerminalStore
   JBSingleTokenPaymentTerminalStore private _jbPaymentTerminalStore;
   // JBETHPaymentTerminal
@@ -121,7 +121,7 @@ contract TestBaseWorkflow is DSTest {
     return _jbSplitsStore;
   }
 
-  function jbController() internal view returns (JBController) {
+  function jbController() internal view returns (JBControllerV2_1) {
     return _jbController;
   }
 
@@ -186,7 +186,7 @@ contract TestBaseWorkflow is DSTest {
     evm.label(address(_jbSplitsStore), 'JBSplitsStore');
 
     // JBController
-    _jbController = new JBController(
+    _jbController = new JBControllerV2_1(
       _jbOperatorStore,
       _jbProjects,
       _jbDirectory,
@@ -194,7 +194,7 @@ contract TestBaseWorkflow is DSTest {
       _jbTokenStore,
       _jbSplitsStore
     );
-    evm.label(address(_jbController), 'JBController');
+    evm.label(address(_jbController), 'JBControllerV2_1');
 
     evm.prank(_multisig);
     _jbDirectory.setIsAllowedToSetFirstController(address(_jbController), true);

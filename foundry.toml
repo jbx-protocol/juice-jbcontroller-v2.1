@@ -7,6 +7,7 @@ remappings = [
     '@juicebox=contracts/',
     '@chainlink=lib/chainlink/',
     '@openzeppelin=lib/openzeppelin-contracts',
+    '@jbx-protocol=lib/jbx-protocol',
     '@paulrberg/contracts/math/=lib/prb-math/contracts',
     'prb-math=lib/prb-math/',
     'ds-test/=lib/ds-test/src/',
