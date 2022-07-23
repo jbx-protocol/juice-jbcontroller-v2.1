@@ -11,7 +11,7 @@ import './helpers/TestBaseWorkflow.sol';
  * launch project → issue token → pay project (claimed tokens) →  burn some of the claimed tokens → redeem rest of tokens
  */
 contract TestPayBurnRedeemFlow is TestBaseWorkflow {
-  JBController private _controller;
+  JBControllerV2_1 private _controller;
   JBETHPaymentTerminal private _terminal;
   JBTokenStore private _tokenStore;
 
@@ -98,6 +98,9 @@ contract TestPayBurnRedeemFlow is TestBaseWorkflow {
     uint256 burnTokenAmount, // 0
     uint256 redeemTokenAmount // 0
   ) external {
+    // Make sure the burn amount does not exceed int256 max value
+    evm.assume(burnTokenAmount < uint256(type(int256).max));
+
     // issue an ERC-20 token for project
     evm.prank(_projectOwner);
     _controller.issueTokenFor(_projectId, 'TestName', 'TestSymbol');

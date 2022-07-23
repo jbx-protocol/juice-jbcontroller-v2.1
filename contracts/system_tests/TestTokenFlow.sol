@@ -5,7 +5,7 @@ import './helpers/TestBaseWorkflow.sol';
 
 /// @notice This file tests JBToken related flows
 contract TestTokenFlow is TestBaseWorkflow {
-  JBController private _controller;
+  JBControllerV2_1 private _controller;
   JBTokenStore private _tokenStore;
 
   JBProjectMetadata private _projectMetadata;
@@ -80,8 +80,8 @@ contract TestTokenFlow is TestBaseWorkflow {
     bool burnPreferClaimed
   ) public {
     // Might overflow in processed token tracker if burn amount >= max int256 (ie (2**256)/2 -1 )
-    evm.assume(burnAmount < (2**256)/2);
-    
+    evm.assume(burnAmount < (2**256) / 2);
+
     // calls will originate from projectOwner addr
     evm.startPrank(_projectOwner);
 
@@ -166,7 +166,7 @@ contract TestTokenFlow is TestBaseWorkflow {
     // mint unclaimed tokens to beneficiary addr
     _controller.mintTokensOf(
       _projectId,
-      type(uint256).max,
+      type(uint248).max, // max size is uint248, uint256 does not fit as it has to allow for conversion to int
       _beneficiary,
       'Mint memo',
       false,
@@ -200,7 +200,7 @@ contract TestTokenFlow is TestBaseWorkflow {
     // mint unclaimed tokens to beneficiary addr
     _controller.mintTokensOf(
       _projectId,
-      type(uint256).max,
+      type(uint248).max,
       _beneficiary,
       'Mint memo',
       false,
@@ -223,9 +223,9 @@ contract TestTokenFlow is TestBaseWorkflow {
     assertEq(_newToken.balanceOf(_beneficiary, _projectId), type(uint224).max);
     assertEq(
       _tokenStore.unclaimedBalanceOf(_beneficiary, _projectId),
-      type(uint256).max - type(uint224).max
+      type(uint248).max - type(uint224).max
     );
-    assertEq(_tokenStore.unclaimedTotalSupplyOf(_projectId), type(uint256).max - type(uint224).max);
-    assertEq(_tokenStore.balanceOf(_beneficiary, _projectId), type(uint256).max);
+    assertEq(_tokenStore.unclaimedTotalSupplyOf(_projectId), type(uint248).max - type(uint224).max);
+    assertEq(_tokenStore.balanceOf(_beneficiary, _projectId), type(uint248).max);
   }
 }

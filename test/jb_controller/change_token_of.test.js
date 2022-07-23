@@ -67,6 +67,10 @@ describe('JBController::changeTokenOf(...)', function () {
       .withArgs(PROJECT_ID, NAME, SYMBOL)
       .returns(mockJbToken.address);
 
+    await mockJbTokenStore.mock.totalSupplyOf
+        .withArgs(PROJECT_ID)
+        .returns(100_000); // Arbitrary value
+
     await mockJbProjects.mock.ownerOf.withArgs(PROJECT_ID).returns(projectOwner.address);
 
     return {

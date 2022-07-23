@@ -3,12 +3,12 @@ pragma solidity 0.8.6;
 
 import './helpers/TestBaseWorkflow.sol';
 
-import '../JBReconfigurationBufferBallot.sol';
+import '@jbx-protocol/contracts-v2/contracts/JBReconfigurationBufferBallot.sol';
 
 uint256 constant WEIGHT = 1000 * 10**18;
 
 contract TestReconfigureProject is TestBaseWorkflow {
-  JBController controller;
+  JBControllerV2_1 controller;
   JBProjectMetadata _projectMetadata;
   JBFundingCycleData _data;
   JBFundingCycleData _dataReconfiguration;
@@ -146,7 +146,7 @@ contract TestReconfigureProject is TestBaseWorkflow {
     uint256 currentConfiguration = fundingCycle.configuration;
 
     // Jump to FC+1, rolled over
-    evm.warp(block.timestamp + fundingCycle.duration); 
+    evm.warp(block.timestamp + fundingCycle.duration);
 
     // First reconfiguration
     evm.prank(multisig());
@@ -171,7 +171,7 @@ contract TestReconfigureProject is TestBaseWorkflow {
     evm.prank(multisig());
     controller.reconfigureFundingCyclesOf(
       projectId,
-        JBFundingCycleData({
+      JBFundingCycleData({
         duration: 6 days,
         weight: weightSecondReconfiguration,
         discountRate: 0,
@@ -590,6 +590,5 @@ contract TestReconfigureProject is TestBaseWorkflow {
     fundingCycle = jbFundingCycleStore().currentOf(projectId);
     assertEq(fundingCycle.number, 2);
     assertEq(fundingCycle.weight, _dataReconfiguration.weight);
-
   }
 }

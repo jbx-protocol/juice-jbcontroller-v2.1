@@ -4,7 +4,7 @@ pragma solidity 0.8.6;
 import './helpers/TestBaseWorkflow.sol';
 
 contract TestAllowance is TestBaseWorkflow {
-  JBController controller;
+  JBControllerV2_1 controller;
   JBProjectMetadata _projectMetadata;
   JBFundingCycleData _data;
   JBFundingCycleMetadata _metadata;
